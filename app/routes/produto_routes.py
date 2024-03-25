@@ -22,6 +22,16 @@ def create(request: ProdutoRequest, db: Session = Depends(get_db)):
     produto = ProdutoRepository.save(db, ProdutosModel(**request.dict()))
     return ProdutoResponse.from_orm(produto)
 
+#@router.post("/criar", response_model=ProdutoResponse, status_code=status.HTTP_201_CREATED)
+#def create(request: ProdutoRequest, db: Session = Depends(get_db)):
+#    try:
+#        produto = ProdutoRepository.save(db, ProdutosModel(**request.dict()))
+#        return ProdutoResponse.from_orm(produto)
+#    except:
+#         raise HTTPException(
+#            status_code=status.HTTP_404_NOT_FOUND, detail="Setor Não Existe"
+#        )
+
 
 @router.get("/listar_todos", response_model=list[ProdutoResponse])
 def find_all(db: Session = Depends(get_db)):

@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from fastapi import HTTPException, status
 
 from db.models import Produtos
 
@@ -9,11 +10,16 @@ class ProdutoRepository:
 
     @staticmethod
     def save(db: Session, produto: Produtos) -> Produtos:
-        if produto.id:
-            db.merge(produto)
-        else:
-            db.add(produto)
-        db.commit()
+        try:
+            if produto.id:
+                db.merge(produto)
+            else:
+                db.add(produto)
+            db.commit()
+        except:
+            raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Setor Não Existe"
+        )
         return produto
 
     @staticmethod

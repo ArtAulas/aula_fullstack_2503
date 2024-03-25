@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Response, Depends, status, Query
+from fastapi import APIRouter, Response, Depends, status, Query, HTTPException
 from sqlalchemy.orm import Session
 from db.database import engine,SessionLocal, get_db
 from db.models import Setores as SetorModel
